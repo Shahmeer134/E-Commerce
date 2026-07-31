@@ -1,5 +1,5 @@
-import BaseRepository from "../base/BaseRepository";
-import { ICategories, categorySchema } from "../../models/categories.Schema";
+import BaseRepository from "../base/BaseRepository.js";
+import { ICategories, categorySchema } from "../../models/categories.Schema.js";
 
 class CategoryRepository extends BaseRepository<ICategories> {
   constructor() {

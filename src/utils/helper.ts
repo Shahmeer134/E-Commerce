@@ -12,10 +12,9 @@ export const generateJwtToken = (
     email: string;
     role: string;
   },
-  expiresIn: SignOptions["expiresIn"] = "1d",
 ): string => {
   return Jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET as string, {
-    expiresIn,
+    expiresIn: "1d",
   });
 };
 
