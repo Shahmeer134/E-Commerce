@@ -2,38 +2,38 @@ import { Request, Response, NextFunction } from "express";
 import { decodeJwtToken } from "../utils/helper.js";
 
 export const authMiddleware = (
-    req: Request,
-    res: Response,
-    next: NextFunction,
+  req: Request,
+  res: Response,
+  next: NextFunction,
 ) => {
-    const header = req.headers.authorization;
+  const header = req.headers.authorization;
 
-    if(!header){
-        return res.status(401).json({
-            message: "Token missing"
-        })
-    }
+  if (!header || !header.startsWith("Bearer ")) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
 
-    const token = header.split(" ")[1];
+  const token = header.split(" ")[1];
 
-    if(!token){
-        return res.status(401).json({
-            message: "Invalid token"
-        });
-    }
+  if (!token) {
+    return res.status(401).json({
+      message: "Invalid token",
+    });
+  }
 
-    const decoded = decodeJwtToken(token);
+  const decoded = decodeJwtToken(token);
 
-    if(!decoded){
-        return res.status(401).json({
-            message: "Token expired"
-        });
-    }
+  if (!decoded) {
+    return res.status(401).json({
+      message: "Token expired",
+    });
+  }
 
-    req.user = {
-        sub: decoded.sub as string,
-        email: decoded.email as string,
-        role: decoded.role as string,
-    }
-    next();
-}
+  req.user = {
+    sub: decoded.sub as string,
+    email: decoded.email as string,
+    role: decoded.role as string,
+  };
+  next();
+};

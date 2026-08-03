@@ -1,5 +1,5 @@
-import BaseRepository from "../base/BaseRepository";
-import { IProductImages, productImageSchema } from "../../models/productImages.Schema";
+import BaseRepository from "../base/BaseRepository.js";
+import { IProductImages, productImageSchema } from "../../models/productImages.Schema.js";
 
 class ProductImageRepository extends BaseRepository<IProductImages> {
   constructor() {

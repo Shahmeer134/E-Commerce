@@ -34,13 +34,6 @@ export default class AuthRoutes {
       this.controller.admin.bind(this.controller),
     );
 
-    // this.router.post(
-    //   "/orders",
-    //   authMiddleware,
-    //   roleMiddleware(["CUSTOMER"]),
-    //   orderController.create,
-    // );
-
     this.router.get(
       "/user",
       authMiddleware,

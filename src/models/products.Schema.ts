@@ -1,5 +1,5 @@
 import { Schema, Document, Types } from "mongoose";
-import { PRODUCT_STATUS } from "../constant/enums";
+import { PRODUCT_STATUS } from "../constant/enums.js";
 
 export interface IProduct extends Document {
   shop: Types.ObjectId;

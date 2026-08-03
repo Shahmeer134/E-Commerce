@@ -1,5 +1,5 @@
-import BaseRepository from "../base/BaseRepository";
-import { IProductVariant, productVariantSchema } from "../../models/productVariants.Schema";
+import BaseRepository from "../base/BaseRepository.js";
+import { IProductVariant, productVariantSchema } from "../../models/productVariants.Schema.js";
 
 class ProductVariantRepository extends BaseRepository<IProductVariant> {
   constructor() {
