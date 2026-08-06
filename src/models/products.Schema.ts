@@ -109,7 +109,7 @@ const productSchema = new Schema<IProduct>(
     status: {
       type: String,
       enum: Object.values(PRODUCT_STATUS),
-      default: "active",
+      default: "pending",
     },
   },
   {

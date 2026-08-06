@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import AuthRoutes from "./routes/userRoute.js";
+import shopRoutes from "./routes/shopRoute.js";
+import ShopCategoryRoutes from "./routes/shopCategoryRoutes.js"
 import { Logger } from "./utils/logger.js";
 import categoryRoutes from "./routes/categoryRoute.js";
 
@@ -14,6 +16,8 @@ app.use(express.json())
 const authRoutes = new AuthRoutes();
 
 app.use(authRoutes.getRouterGroup(), authRoutes.getRoute());
+app.use("/shops", shopRoutes)
+app.use("/shop-categories", ShopCategoryRoutes)
 
 app.use("/categories", categoryRoutes.getRoute());
 const logger = new Logger("Server");

@@ -1,5 +1,5 @@
 import { Schema, Document, Types } from "mongoose";
-import { SHOP_STATUS } from "../constant/enums";
+import { SHOP_STATUS } from "../constant/enums.js";
 
 export interface IShop extends Document {
   owner: Types.ObjectId;
@@ -43,11 +43,11 @@ const shopSchema = new Schema<IShop>(
     },
     logo: {
       type: String,
-      require: true,
+      required: true,
     },
     description: {
       type: String,
-      rquired: true,
+      required: true,
       maxLength: 5000,
     },
     address: {
@@ -81,7 +81,7 @@ const shopSchema = new Schema<IShop>(
     status: {
       type: String,
       enum: Object.values(SHOP_STATUS),
-      default: "active",
+      default: "pending",
     },
     slug: {
       type: String,

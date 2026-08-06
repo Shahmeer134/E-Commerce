@@ -1,5 +1,5 @@
-import BaseRepository from "../base/BaseRepository";
-import { IShop, shopSchema } from "../../models/shops.Schema";
+import BaseRepository from "../base/BaseRepository.js";
+import { IShop, shopSchema } from "../../models/shop.Schema.js";
 
 class ShopRepository extends BaseRepository<IShop> {
   constructor() {

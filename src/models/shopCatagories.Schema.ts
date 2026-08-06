@@ -10,13 +10,13 @@ export interface IShopCategories extends Document {
 const shopCategorySchema = new Schema<IShopCategories>({
   shopCategoryName: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
     trim: true,
   },
   description: {
     type: String,
-    require: true,
+    required: true,
     trim: true,
   },
 }, {
