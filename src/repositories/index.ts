@@ -2,7 +2,7 @@ export { default as BaseRepository } from "./base/BaseRepository.js";
 export { default as BackAccountRepository } from "./user/backAccount.repository.js";
 export { default as CartRepository } from "./cart/cart.repository.js";
 export { default as CartItemRepository } from "./cart/cartItems.repository.js";
-export { default as CategoryRepository } from "./product/category.repository.js";
+export { default as CategoryRepository } from "./category/category.repository.js";
 export { default as CustomerAddressRepository } from "./customer/customerAddress.repository.js";
 export { default as CustomerRepository } from "./customer/customers.repository.js";
 export { default as InventoryRepository } from "./product/inventory.repository.js";
@@ -12,7 +12,7 @@ export { default as OrderItemRepository } from "./orders/orderItems.repository.j
 export { default as OrderTrackingRepository } from "./orders/orderTracking.repository.js";
 export { default as PaymentRepository } from "./orders/payment.repository.js";
 export { default as ProductImageRepository } from "./product/productImages.repository.js";
-export { default as ProductRepository } from "./product/products.repository.js";
+export { default as ProductRepository } from "./product/product.repository.js";
 export { default as ProductVariantRepository } from "./product/productVariants.repository.js";
 export { default as ReviewRepository } from "./product/reviewStatus.repository.js";
 export { default as ShippingRepository } from "./orders/shipping.repository.js";

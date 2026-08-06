@@ -1,5 +1,5 @@
 import slugify from "slugify";
-import categoryRepository from "../repositories/product/category.repository.js";
+import categoryRepository from "../repositories/category/category.repository.js";
 import { logger } from "../utils/helper.js";
 // import { CategoryRepository } from "../repositories/index.js";
 
