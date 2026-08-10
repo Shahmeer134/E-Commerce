@@ -1,5 +1,5 @@
 import { Schema, Document, Types } from "mongoose";
-import { ORDER_STATUS } from "../constant/enums";
+import { ORDER_STATUS } from "../constant/enums.js";
 
 export interface IOrder extends Document {
   customer: Types.ObjectId;
@@ -64,9 +64,10 @@ const orderSchema = new Schema<IOrder>(
 
     paymentStatus: {
       type: String,
-      enum: Object.values(ORDER_STATUS),
-      default: ORDER_STATUS.PENDING,
+      enum: Object.values(PAYMENT_STATUS),
+      default: PAYMENT_STATUS.PENDING,
     },
+
     orderStatus: {
       type: String,
       enum: Object.values(ORDER_STATUS),

@@ -1,5 +1,5 @@
-import BaseRepository from "../base/BaseRepository";
-import { IReview, reviewSchema } from "../../models/reviewStatus.Schema";
+import BaseRepository from "../base/BaseRepository.js";
+import { IReview, reviewSchema } from "../../models/reviewStatus.Schema.js";
 
 class ReviewRepository extends BaseRepository<IReview> {
   constructor() {

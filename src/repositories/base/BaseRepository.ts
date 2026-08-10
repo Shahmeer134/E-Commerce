@@ -88,4 +88,8 @@ export default class BaseRepository<T extends Document> {
   delete(filter: RootFilterQuery<T>): QueryWithHelpers<T | null, T> {
     return this.model.findOneAndDelete(filter);
   }
+
+  deleteMany(filter: RootFilterQuery<T>) {
+    return this.model.deleteMany(filter).exec();
+  }
 }

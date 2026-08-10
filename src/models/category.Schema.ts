@@ -16,6 +16,7 @@ const categorySchema = new Schema<ICategories>(
       type: Schema.Types.ObjectId,
       ref: "Category",
       default: null,
+      required: false,
     },
 
     categoryName: {

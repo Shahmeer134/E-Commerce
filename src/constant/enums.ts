@@ -24,6 +24,7 @@ export const SHOP_STATUS = {
 export const PRODUCT_STATUS = {
   ACTIVE: "active",
   INACTIVE: "inactive",
+  PENDING: "pending",
   OUT_OF_STOCK: "out_of_stock",
 } as const;
 

@@ -1,6 +1,7 @@
 import shopRepository from "../repositories/shop/shop.repository.js";
 import categoryRepository from "../repositories/category/category.repository.js";
 import { logger } from "../utils/helper.js";
+import { SHOP_STATUS } from "../constant/enums.js";
 
 class ShopService {
   async create(data: any, ownerId: string) {
@@ -154,7 +155,7 @@ class ShopService {
     logger.debug("Fetching all shops");
 
     const shops = await shopRepository.findAll({
-      status: "active",
+      status: SHOP_STATUS.APPROVED,
     });
 
     logger.info(

@@ -1,0 +1,54 @@
+import { Router } from "express";
+import customerAddressController from "../controller/customerAddressController.js";
+import { authMiddleware } from "../middleware/auth.middleware.js";
+import { roleMiddleware } from "../middleware/roles.middleware.js";
+import { ROLES } from "../constant/enums.js";
+
+const router = Router();
+
+router.post(
+  "/",
+  authMiddleware,
+  roleMiddleware([ROLES.CUSTOMER]),
+  customerAddressController.create.bind(
+    customerAddressController,
+  ),
+);
+
+router.get(
+  "/",
+  authMiddleware,
+  roleMiddleware([ROLES.CUSTOMER]),
+  customerAddressController.getAll.bind(
+    customerAddressController,
+  ),
+);
+
+router.get(
+  "/:id",
+  authMiddleware,
+  roleMiddleware([ROLES.CUSTOMER]),
+  customerAddressController.getById.bind(
+    customerAddressController,
+  ),
+);
+
+router.patch(
+  "/:id",
+  authMiddleware,
+  roleMiddleware([ROLES.CUSTOMER]),
+  customerAddressController.update.bind(
+    customerAddressController,
+  ),
+);
+
+router.delete(
+  "/:id",
+  authMiddleware,
+  roleMiddleware([ROLES.CUSTOMER]),
+  customerAddressController.delete.bind(
+    customerAddressController,
+  ),
+);
+
+export default router;

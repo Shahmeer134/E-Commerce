@@ -1,5 +1,5 @@
-import BaseRepository from "../base/BaseRepository";
-import { ICart, cartSchema } from "../../models/cart.Schema";
+import BaseRepository from "../base/BaseRepository.js";
+import { ICart, cartSchema } from "../../models/cart.Schema.js";
 
 class CartRepository extends BaseRepository<ICart> {
   constructor() {

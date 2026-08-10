@@ -1,5 +1,5 @@
-import BaseRepository from "../base/BaseRepository";
-import { ICustomers, customerSchema } from "../../models/customers.Schema";
+import BaseRepository from "../base/BaseRepository.js";
+import { ICustomers, customerSchema } from "../../models/customer.Schema.js";
 
 class CustomerRepository extends BaseRepository<ICustomers> {
   constructor() {

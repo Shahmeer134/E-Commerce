@@ -12,7 +12,7 @@ export interface ICustomerAddress extends Document {
   isVerified: boolean;
 
   street: string;
-  phone: number;
+  phone: string;
 
   createdAt: Date;
   updatedAt: Date;
@@ -43,7 +43,7 @@ const customerAddressSchema = new Schema<ICustomerAddress>(
       trim: true,
     },
     phone: {
-      type: Number,
+      type: String,
       required: true,
       unique: true,
     },

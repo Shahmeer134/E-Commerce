@@ -1,5 +1,5 @@
-import BaseRepository from "../base/BaseRepository";
-import { ICartItem, cartItemSchema } from "../../models/cartItems.Schema";
+import BaseRepository from "../base/BaseRepository.js";
+import { ICartItem, cartItemSchema } from "../../models/cartItems.Schema.js";
 
 class CartItemRepository extends BaseRepository<ICartItem> {
   constructor() {

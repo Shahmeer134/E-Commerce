@@ -4,7 +4,7 @@ export interface IInventory extends Document {
   product: Types.ObjectId;
 
   availableStock: number;
-  recievedStock: number;
+  receivedStock: number;
 
   createdAt: Date;
   updatedAt: Date;
@@ -14,11 +14,11 @@ const inventorySchema = new Schema<IInventory>(
   {
     product: {
       type: Schema.Types.ObjectId,
-      ref: "product",
+      ref: "Product",
       required: true,
       unique: true,
     },
-    recievedStock: {
+    receivedStock: {
       type: Number,
       required: true,
       default: 0,

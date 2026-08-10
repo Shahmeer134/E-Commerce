@@ -4,7 +4,7 @@ export { default as CartRepository } from "./cart/cart.repository.js";
 export { default as CartItemRepository } from "./cart/cartItems.repository.js";
 export { default as CategoryRepository } from "./category/category.repository.js";
 export { default as CustomerAddressRepository } from "./customer/customerAddress.repository.js";
-export { default as CustomerRepository } from "./customer/customers.repository.js";
+export { default as CustomerRepository } from "./customer/customer.repository.js";
 export { default as InventoryRepository } from "./product/inventory.repository.js";
 export { default as NotificationRepository } from "./user/notification.repository.js";
 export { default as OrderRepository } from "./orders/order.repository.js";

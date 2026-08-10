@@ -81,7 +81,7 @@ const shopSchema = new Schema<IShop>(
     status: {
       type: String,
       enum: Object.values(SHOP_STATUS),
-      default: "pending",
+      default: "active",
     },
     slug: {
       type: String,

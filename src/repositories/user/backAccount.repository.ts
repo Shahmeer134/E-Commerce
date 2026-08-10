@@ -1,5 +1,5 @@
-import BaseRepository from "./base/BaseRepository";
-import { IBankAccount, bankAccountSchema } from "../../models/backAccount.Schema";
+import BaseRepository from "../base/BaseRepository.js";
+import { IBankAccount, bankAccountSchema } from "../../models/backAccount.Schema.js";
 
 class BankAccountRepository extends BaseRepository<IBankAccount> {
   constructor() {

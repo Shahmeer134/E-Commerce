@@ -1,5 +1,5 @@
-import BaseRepository from "../base/BaseRepository";
-import { IWishlist, wishlistSchema } from "../../models/wishlist.Schema";
+import BaseRepository from "../base/BaseRepository.js";
+import { IWishlist, wishlistSchema } from "../../models/wishlist.Schema.js";
 
 class WishlistRepository extends BaseRepository<IWishlist> {
   constructor() {

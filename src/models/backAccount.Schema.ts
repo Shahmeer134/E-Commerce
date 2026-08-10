@@ -30,12 +30,12 @@ const bankAccountSchema = new Schema<IBankAccount>(
     },
     accountNumber: {
       type: String,
-      require: true,
+      required: true,
       unique: true,
     },
     iban: {
       type: String,
-      require: true,
+      required: true,
       unique: true,
     },
   },
