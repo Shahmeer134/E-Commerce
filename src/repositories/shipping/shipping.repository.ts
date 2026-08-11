@@ -1,5 +1,5 @@
-import BaseRepository from "../base/BaseRepository";
-import { IShipping, shippingSchema } from "../../models/shipping.Schema";
+import BaseRepository from "../base/BaseRepository.js";
+import { IShipping, shippingSchema } from "../../models/shipping.Schema.js";
 
 class ShippingRepository extends BaseRepository<IShipping> {
   constructor() {

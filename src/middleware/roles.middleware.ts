@@ -12,7 +12,7 @@ export const roleMiddleware = (allowRoles: string[]) => {
     console.log("Required roles:", allowRoles);
     console.log("User role:", userRole);
 
-    if (!allowRoles.some((role) => role.toLowerCase() === userRole)) {
+    if (!allowRoles.some((role) => role.toLowerCase() === userRole?.toLowerCase())) {
       return res.status(403).json({
         message: "You don't have permission to access this resource",
       });

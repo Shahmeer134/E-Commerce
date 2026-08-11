@@ -1,5 +1,5 @@
-import BaseRepository from "../base/BaseRepository";
-import { IPayment, paymentSchema } from "../../models/payment.Schema";
+import BaseRepository from "../base/BaseRepository.js";
+import { IPayment, paymentSchema } from "../../models/payment.Schema.js";
 
 class PaymentRepository extends BaseRepository<IPayment> {
   constructor() {

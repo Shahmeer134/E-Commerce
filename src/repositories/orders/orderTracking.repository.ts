@@ -1,5 +1,5 @@
-import BaseRepository from "../base/BaseRepository";
-import { IOrderTracking, orderTrackingSchema } from "../../models/orderTracking.Schema";
+import BaseRepository from "../base/BaseRepository.js";
+import { IOrderTracking, orderTrackingSchema } from "../../models/orderTracking.Schema.js";
 
 class OrderTrackingRepository extends BaseRepository<IOrderTracking> {
   constructor() {

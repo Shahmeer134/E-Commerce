@@ -1,4 +1,4 @@
-import inventoryRepository from "../repositories/product/inventory.repository.js";
+import inventoryRepository from "../repositories/inventory/inventory.repository.js";
 import productRepository from "../repositories/product/product.repository.js";
 import { Logger } from "../utils/logger.js";
 

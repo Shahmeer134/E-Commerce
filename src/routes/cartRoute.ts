@@ -6,6 +6,13 @@ import { ROLES } from "../constant/enums.js";
 
 const router = Router();
 
+router.post(
+  "/",
+  authMiddleware,
+  roleMiddleware([ROLES.CUSTOMER]),
+  cartController.createCart.bind(cartController),
+);
+
 router.get(
   "/",
   authMiddleware,

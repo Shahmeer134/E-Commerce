@@ -2,6 +2,29 @@ import { Request, Response } from "express";
 import cartService from "../services/cart.services.js";
 
 class CartController {
+  async createCart(req: Request, res: Response) {
+    try {
+      const userId = req.user?.sub;
+
+      if (!userId) {
+        return res.status(401).json({
+          message: "Unauthorized",
+        });
+      }
+
+      const cart = await cartService.createCart(userId);
+
+      return res.status(201).json({
+        message: "Cart created successfully",
+        data: cart,
+      });
+    } catch (error: any) {
+      return res.status(400).json({
+        message: error.message,
+      });
+    }
+  }
+
   async addItem(req: Request, res: Response) {
     try {
       const userId = req.user?.sub;

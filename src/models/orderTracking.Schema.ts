@@ -1,5 +1,5 @@
 import { Schema, Document, Types } from "mongoose";
-import { SHIPPING_STATUS } from "../constant/enums";
+import { SHIPPING_STATUS } from "../constant/enums.js";
 
 export interface IOrderTracking extends Document {
   order: Types.ObjectId;

@@ -3,13 +3,13 @@ import cartItemRepository from "../repositories/cart/cartItems.repository.js";
 import customerRepository from "../repositories/customer/customer.repository.js";
 import productRepository from "../repositories/product/product.repository.js";
 import productVariantRepository from "../repositories/product/productVariants.repository.js";
-import inventoryRepository from "../repositories/product/inventory.repository.js";
+import inventoryRepository from "../repositories/inventory/inventory.repository.js";
 import { Logger } from "../utils/logger.js";
 
 const logger = new Logger("CartService");
 
 class CartServices {
-  private async getOrCreateCart(userId: string) {
+  private async getCustomer(userId: string) {
     const customer = await customerRepository.get({
       user: userId,
     });
@@ -20,17 +20,45 @@ class CartServices {
       throw new Error("Customer not found");
     }
 
-    let cart = await cartRepository.get({
+    return customer;
+  }
+
+  private async getExistingCart(userId: string) {
+    const customer = await this.getCustomer(userId);
+
+    const cart = await cartRepository.get({
       customerId: customer._id,
     });
 
     if (!cart) {
-      cart = await cartRepository.create({
-        customerId: customer._id,
-      });
+      logger.warn({ userId }, "Cart not found");
 
-      logger.info({ cartId: cart._id.toString() }, "Cart created");
+      throw new Error("Cart not found. Please create a cart first");
     }
+
+    return cart;
+  }
+
+  async createCart(userId: string) {
+    logger.debug({ userId }, "Creating cart");
+
+    const customer = await this.getCustomer(userId);
+
+    const existingCart = await cartRepository.get({
+      customerId: customer._id,
+    });
+
+    if (existingCart) {
+      logger.warn({ userId }, "Cart already exists");
+
+      throw new Error("Cart already exists");
+    }
+
+    const cart = await cartRepository.create({
+      customerId: customer._id,
+    });
+
+    logger.info({ cartId: cart._id.toString() }, "Cart created successfully");
 
     return cart;
   }
@@ -41,7 +69,7 @@ class CartServices {
   ) {
     logger.debug({ userId, productId: data.product }, "Adding item to cart");
 
-    const cart = await this.getOrCreateCart(userId);
+    const cart = await this.getExistingCart(userId);
 
     const product = await productRepository.get({
       _id: data.product,
@@ -120,7 +148,7 @@ class CartServices {
   async getCart(userId: string) {
     logger.debug({ userId }, "Fetching cart");
 
-    const cart = await this.getOrCreateCart(userId);
+    const cart = await this.getExistingCart(userId);
 
     const items = await cartItemRepository
       .findAll({ cart: cart._id })
@@ -138,7 +166,7 @@ class CartServices {
   async updateItem(userId: string, itemId: string, quantity: number) {
     logger.debug({ userId, itemId, quantity }, "Updating cart item");
 
-    const cart = await this.getOrCreateCart(userId);
+    const cart = await this.getExistingCart(userId);
 
     const item = await cartItemRepository.get({
       _id: itemId,
@@ -175,7 +203,7 @@ class CartServices {
   async removeItem(userId: string, itemId: string) {
     logger.debug({ userId, itemId }, "Removing cart item");
 
-    const cart = await this.getOrCreateCart(userId);
+    const cart = await this.getExistingCart(userId);
 
     const item = await cartItemRepository.get({
       _id: itemId,
@@ -201,7 +229,7 @@ class CartServices {
   async clearCart(userId: string) {
     logger.debug({ userId }, "Clearing cart");
 
-    const cart = await this.getOrCreateCart(userId);
+    const cart = await this.getExistingCart(userId);
 
     const items = await cartItemRepository.findAll({ cart: cart._id });
 

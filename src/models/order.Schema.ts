@@ -1,5 +1,6 @@
 import { Schema, Document, Types } from "mongoose";
 import { ORDER_STATUS } from "../constant/enums.js";
+import { PAYMENT_STATUS } from "../constant/enums.js"
 
 export interface IOrder extends Document {
   customer: Types.ObjectId;

@@ -15,6 +15,13 @@ import customerAddressRoutes from "./routes/customerAddressRoutes.js";
 import cartRoutes from "./routes/cartRoute.js";
 import wishlistRoutes from "./routes/wishlistRoute.js";
 import bankAccountRoutes from "./routes/bankAccountRoute.js";
+import orderRoutes from "./routes/orderRoute.js";
+import paymentRoutes from "./routes/paymentRoute.js";
+import shippingRoutes from "./routes/shippingRoute.js";
+import orderTrackingRoutes from "./routes/orderTrackingRoute.js";
+import orderItemRoutes from "./routes/orderItemRoute.js";
+import reviewRoutes from "./routes/reviewRoute.js";
+import notificationRoutes from "./routes/notificationRoute.js";
 
 dotenv.config();
 const PORT = 4000;
@@ -37,6 +44,13 @@ app.use("/customers", customerRoutes);
 app.use("/customer-addresses", customerAddressRoutes);
 app.use("/cart", cartRoutes);
 app.use("/wishlist", wishlistRoutes);
+app.use("/orders", orderRoutes);
+app.use("/payments", paymentRoutes);
+app.use("/shipping", shippingRoutes);
+app.use("/order-tracking", orderTrackingRoutes);
+app.use("/order-items", orderItemRoutes);
+app.use("/reviews", reviewRoutes);
+app.use("/notifications", notificationRoutes);
 
 const logger = new Logger("Server");
 

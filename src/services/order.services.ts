@@ -1,17 +1,32 @@
-import orderRepository from "../repositories/order/order.repository.js";
-import orderItemRepository from "../repositories/order/orderItem.repository.js";
+import orderRepository from "../repositories/orders/order.repository.js";
+import orderItemRepository from "../repositories/orders/orderItems.repository.js";
 import cartRepository from "../repositories/cart/cart.repository.js";
-import cartItemRepository from "../repositories/cart/cartItem.repository.js";
+import cartItemRepository from "../repositories/cart/cartItems.repository.js";
 import productRepository from "../repositories/product/product.repository.js";
 import customerAddressRepository from "../repositories/customer/customerAddress.repository.js";
+import customerRepository from "../repositories/customer/customer.repository.js";
 import { Logger } from "../utils/logger.js";
 
 const logger = new Logger("OrderService");
 
 class OrderService {
+  private async getCustomer(userId: string) {
+    const customer = await customerRepository.get({
+      user: userId,
+    });
+
+    if (!customer) {
+      logger.warn({ userId }, "Customer not found");
+
+      throw new Error("Customer not found");
+    }
+
+    return customer;
+  }
+
   // CREATE ORDER
   async create(
-    customerId: string,
+    userId: string,
     data: {
       shippingAddress: string;
       shippingCost?: number;
@@ -21,15 +36,18 @@ class OrderService {
   ) {
     logger.debug(
       {
-        customerId,
+        userId,
       },
       "Creating order",
     );
 
+    const customer = await this.getCustomer(userId);
+    const customerId = customer._id;
+
     // 1. Check shipping address
     const address = await customerAddressRepository.get({
       _id: data.shippingAddress,
-      customer: customerId,
+      customerId,
     });
 
     if (!address) {
@@ -102,9 +120,7 @@ class OrderService {
           "Product not found",
         );
 
-        throw new Error(
-          `Product ${item.product} not found`,
-        );
+        throw new Error(`Product ${item.product} not found`);
       }
 
       // 5. Check stock
@@ -118,9 +134,7 @@ class OrderService {
           "Insufficient product stock",
         );
 
-        throw new Error(
-          `Insufficient stock for product ${product.title}`,
-        );
+        throw new Error(`Insufficient stock for product ${product.title}`);
       }
 
       const price = item.price;
@@ -143,11 +157,7 @@ class OrderService {
     const tax = data.tax ?? 0;
     const discount = data.discount ?? 0;
 
-    const totalAmount =
-      subTotal +
-      shippingCost +
-      tax -
-      discount;
+    const totalAmount = subTotal + shippingCost + tax - discount;
 
     // 7. Create order
     const order = await orderRepository.create({
@@ -195,21 +205,23 @@ class OrderService {
   }
 
   // GET MY ORDERS
-  async getMyOrders(customerId: string) {
+  async getMyOrders(userId: string) {
     logger.debug(
       {
-        customerId,
+        userId,
       },
       "Fetching customer orders",
     );
 
+    const customer = await this.getCustomer(userId);
+
     const orders = await orderRepository.findAll({
-      customer: customerId,
+      customer: customer._id,
     });
 
     logger.info(
       {
-        customerId,
+        customerId: customer._id,
         totalOrders: orders.length,
       },
       "Customer orders fetched successfully",
@@ -219,28 +231,27 @@ class OrderService {
   }
 
   // GET ORDER BY ID
-  async getById(
-    id: string,
-    customerId: string,
-  ) {
+  async getById(id: string, userId: string) {
     logger.debug(
       {
         orderId: id,
-        customerId,
+        userId,
       },
       "Fetching order",
     );
 
+    const customer = await this.getCustomer(userId);
+
     const order = await orderRepository.get({
       _id: id,
-      customer: customerId,
+      customer: customer._id,
     });
 
     if (!order) {
       logger.warn(
         {
           orderId: id,
-          customerId,
+          customerId: customer._id,
         },
         "Order not found",
       );
@@ -252,28 +263,27 @@ class OrderService {
   }
 
   // CANCEL ORDER
-  async cancel(
-    id: string,
-    customerId: string,
-  ) {
+  async cancel(id: string, userId: string) {
     logger.debug(
       {
         orderId: id,
-        customerId,
+        userId,
       },
       "Cancelling order",
     );
 
+    const customer = await this.getCustomer(userId);
+
     const order = await orderRepository.get({
       _id: id,
-      customer: customerId,
+      customer: customer._id,
     });
 
     if (!order) {
       logger.warn(
         {
           orderId: id,
-          customerId,
+          customerId: customer._id,
         },
         "Order not found",
       );
@@ -291,31 +301,28 @@ class OrderService {
         "Order cannot be cancelled",
       );
 
-      throw new Error(
-        "Only pending orders can be cancelled",
-      );
+      throw new Error("Only pending orders can be cancelled");
     }
 
-    const updatedOrder =
-      await orderRepository.update(
-        {
-          _id: id,
-          customer: customerId,
+    const updatedOrder = await orderRepository.update(
+      {
+        _id: id,
+        customer: customer._id,
+      },
+      {
+        $set: {
+          orderStatus: "cancelled",
         },
-        {
-          $set: {
-            orderStatus: "cancelled",
-          },
-        },
-        {
-          new: true,
-        },
-      );
+      },
+      {
+        new: true,
+      },
+    );
 
     logger.info(
       {
         orderId: id,
-        customerId,
+        customerId: customer._id,
       },
       "Order cancelled successfully",
     );
